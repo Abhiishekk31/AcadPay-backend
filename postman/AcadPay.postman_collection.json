@@ -1,0 +1,379 @@
+{
+	"info": {
+		"_postman_id": "1234567-89ab-cdef-0123-456789abcdef",
+		"name": "AcadPay API",
+		"description": "API collection for AcadPay - School Payment System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"user@example.com\",\n\t\"password\": \"yourpassword\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"user@example.com\",\n\t\"password\": \"yourpassword\",\n\t\"firstName\": \"John\",\n\t\"lastName\": \"Doe\",\n\t\"role\": \"ADMIN\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Generate Sign",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"school_id\": \"school123\",\n\t\"collect_request_id\": \"req456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/generate-sign",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "generate-sign"]
+						}
+					}
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "profile"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Get All Students",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/students",
+							"host": ["{{base_url}}"],
+							"path": ["students"]
+						}
+					}
+				},
+				{
+					"name": "Get Student by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/students/{{student_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["students", "{{student_id}}"]
+						}
+					}
+				},
+				{
+					"name": "Create Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Jane\",\n\t\"lastName\": \"Smith\",\n\t\"studentId\": \"STU001\",\n\t\"email\": \"jane.smith@example.com\",\n\t\"grade\": \"10\",\n\t\"section\": \"A\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/students",
+							"host": ["{{base_url}}"],
+							"path": ["students"]
+						}
+					}
+				},
+				{
+					"name": "Update Student",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Jane\",\n\t\"lastName\": \"Smith\",\n\t\"grade\": \"11\",\n\t\"section\": \"B\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/students/{{student_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["students", "{{student_id}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Student",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/students/{{student_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["students", "{{student_id}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Create Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\": \"1000\",\n\t\"callback_url\": \"http://localhost:3000/webhook\",\n\t\"student_info\": {\n\t\t\"name\": \"Jane Smith\",\n\t\t\"id\": \"STU001\",\n\t\t\"email\": \"jane.smith@example.com\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/create-payment",
+							"host": ["{{base_url}}"],
+							"path": ["create-payment"]
+						}
+					}
+				},
+				{
+					"name": "Get Payment Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/payment-status/req456?school_id=school123",
+							"host": ["{{base_url}}"],
+							"path": ["payment-status", "req456"],
+							"query": [
+								{
+									"key": "school_id",
+									"value": "school123"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Webhook Handler",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"status\": 200,\n\t\"order_info\": {\n\t\t\"order_id\": \"ord789\",\n\t\t\"order_amount\": 1000,\n\t\t\"transaction_amount\": 1000,\n\t\t\"gateway\": \"Stripe\",\n\t\t\"bank_reference\": \"ref123\",\n\t\t\"status\": \"SUCCESS\",\n\t\t\"payment_mode\": \"CARD\",\n\t\t\"payment_details\": \"Visa\",\n\t\t\"payment_message\": \"Payment completed\",\n\t\t\"payment_time\": \"2024-01-01T12:00:00Z\",\n\t\t\"error_message\": \"\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/webhook",
+							"host": ["{{base_url}}"],
+							"path": ["webhook"]
+						}
+					}
+				},
+				{
+					"name": "Get All Transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/transactions?page=1&limit=10&sort=payment_time&order=desc",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "payment_time"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get School Transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/transactions/school/school123?page=1&limit=10&sort=payment_time&order=desc",
+							"host": ["{{base_url}}"],
+							"path": ["transactions", "school", "school123"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "payment_time"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Transaction Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/transaction-status/ord789",
+							"host": ["{{base_url}}"],
+							"path": ["transaction-status", "ord789"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "your_jwt_token_here",
+			"type": "string"
+		},
+		{
+			"key": "student_id",
+			"value": "student_id_here",
+			"type": "string"
+		}
+	]
+} 

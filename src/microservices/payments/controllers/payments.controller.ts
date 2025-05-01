@@ -10,15 +10,13 @@ import {
     Res,
     NotFoundException,
   } from '@nestjs/common';
-//   import { PaymentsService } from '../services/payments.service';
-//   import { CreatePaymentDto } from '../dtos/create-payment.dto';
-//   import { WebhookDto } from '../dtos/webhook.dto';
   import { AuthGuard } from '@nestjs/passport';
   import { Response } from 'express';
-import { PaymentsService } from '../../services/payments/payments.service';
-import { CreatePaymentDto } from '../../dtos/create-payment.dto';
-import { WebhookDto } from '../../dtos/webhook.dto';
+
 import { get } from 'http';
+import { PaymentsService } from '../services/payments.service';
+import { CreatePaymentDto } from '../dtos/create-payment.dto';
+import { WebhookDto } from '../dtos/webhook.dto';
   
   @Controller()
   export class PaymentsController {
@@ -79,3 +77,4 @@ import { get } from 'http';
       return this.paymentsService.getTransactionStatus(customOrderId);
     }
   }
+  

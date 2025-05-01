@@ -1,10 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-import { UsersService } from 'src/microservices/users/services/users/users.service';
-import { RegisterDto } from '../../dtos/register.dto';
-import { LoginDto } from '../../dtos/login.dto';
+import * as argon2 from 'argon2';
+import { RegisterDto } from '../dtos/register.dto';
+import { LoginDto } from '../dtos/login.dto';
 import { ConfigService } from '@nestjs/config';
+import { UsersService } from 'src/microservices/users/services/users.service';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
-    const hashedPassword = await bcrypt.hash(registerDto.password, 10);
+    const hashedPassword = await argon2.hash(registerDto.password);
     const user = await this.usersService.create({
       ...registerDto,
       password: hashedPassword,
@@ -46,9 +46,9 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    const isPasswordValid = await bcrypt.compare(
-      loginDto.password,
+    const isPasswordValid = await argon2.verify(
       user.password,
+      loginDto.password,
     );
 
     if (!isPasswordValid) {

@@ -9,10 +9,11 @@ import {
     UseGuards,
     Query,
   } from '@nestjs/common';
-  import { CreateOrderDto } from '../../dtos/create-order.dto';
-  import { UpdateOrderDto } from '../../dtos/update-order.dto';
-  import { AuthGuard } from '@nestjs/passport';
-import { OrdersService } from '../../services/orders/orders.service';
+import { AuthGuard } from '@nestjs/passport';
+import { OrdersService } from '../services/orders.service';
+import { CreateOrderDto } from '../dtos/create-order.dto';
+import { UpdateOrderDto } from '../dtos/update-order.dto';
+
   
   @Controller('orders')
   @UseGuards(AuthGuard('jwt'))

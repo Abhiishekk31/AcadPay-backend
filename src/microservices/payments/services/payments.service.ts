@@ -10,16 +10,10 @@ import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { Order } from 'src/microservices/orders/models/order.model';
 import { OrderStatus } from 'src/microservices/orders/models/order-status.model';
-import { WebhookLog } from '../../models/webhook-log.model';
-import { OrdersService } from 'src/microservices/orders/services/orders/orders.service';
-import { CreatePaymentDto } from '../../dtos/create-payment.dto';
-import { WebhookDto } from '../../dtos/webhook.dto';
-// import { Order } from '../../orders/models/order.model';
-// import { OrderStatus } from '../../orders/models/order-status.model';
-// import { WebhookLog } from '../models/webhook-log.model';
-// import { CreatePaymentDto } from '../dtos/create-payment.dto';
-// import { WebhookDto } from '../dtos/webhook.dto';
-// import { OrdersService } from '../../orders/services/orders.service';
+import { WebhookLog } from '../models/webhook-log.model';
+import { CreatePaymentDto } from '../dtos/create-payment.dto';
+import { WebhookDto } from '../dtos/webhook.dto';
+import { OrdersService } from 'src/microservices/orders/services/orders.service';
 
 @Injectable()
 export class PaymentsService {

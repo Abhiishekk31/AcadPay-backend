@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from '../../models/user.model';
-import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from '../../dtos/create-user.dto';
-import { UpdateUserDto } from '../../dtos/update-user.dto';
+import * as argon2 from 'argon2';
+import { User } from '../models/user.model';
+import { CreateUserDto } from '../dtos/create-user.dto';
+import { UpdateUserDto } from '../dtos/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -40,7 +40,7 @@ export class UsersService {
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     if (updateUserDto.password) {
-      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+      updateUserDto.password = await argon2.hash(updateUserDto.password);
     }
     
     const user = await this.userModel

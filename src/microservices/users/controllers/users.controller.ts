@@ -9,9 +9,9 @@ import {
     UseGuards,
   } from '@nestjs/common';
   import { AuthGuard } from '@nestjs/passport';
-import { UsersService } from '../../services/users/users.service';
-import { CreateUserDto } from '../../dtos/create-user.dto';
-import { UpdateUserDto } from '../../dtos/update-user.dto';
+import { CreateUserDto } from '../dtos/create-user.dto';
+import { UpdateUserDto } from '../dtos/update-user.dto';
+import { UsersService } from '../services/users.service';
   
   @Controller('users')
   @UseGuards(AuthGuard('jwt'))

@@ -6,8 +6,8 @@ import { WebhookLog, WebhookLogSchema } from './models/webhook-log.model';
 import { OrdersModule } from '../orders/orders.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PaymentsController } from './controllers/payments/payments.controller';
-import { PaymentsService } from './services/payments/payments.service';
+import { PaymentsService } from './services/payments.service';
+import { PaymentsController } from './controllers/payments.controller';
 
 @Module({
   imports: [
